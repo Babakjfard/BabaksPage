@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1532994667137.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "751397551",
+    "id" : "4354802A",
+    "lastKnownWriteTime" : 1532994664,
+    "last_content_update" : 1532994664,
+    "path" : "~/BabaksPage/config.toml",
+    "project_path" : "config.toml",
+    "properties" : {
+        "cursorPosition" : "137,66",
+        "scrollLine" : "127"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "toml"
+}
