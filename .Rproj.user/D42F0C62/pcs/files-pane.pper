@@ -1,6 +1,10 @@
 {
-    "path" : "~/BabaksPage/themes",
+    "path" : "~/BabaksPage/themes/hugo-tranquilpeak-theme/docs",
     "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 4
+        },
         {
             "ascending" : true,
             "columnIndex" : 2

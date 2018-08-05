@@ -1,3 +1,11 @@
 ---
 site: blogdown:::blogdown_site
 ---
+# This is the main Page
+This is the first page of my personal weblog. I am starting it as a medium to practice / show / interact my data science journey, and share it with everyone who might be interested. 
+
+My interests are:
+
+* Data Science for environmental purposes
+* Geospatial Data Analytics
+* Data Visualization

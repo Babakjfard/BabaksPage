@@ -1,0 +1,9 @@
+---
+title: Heatwave in the Town of Brookline, MA
+author: Babak Fard
+date: '2018-08-05'
+slug: heatwave-in-the-town-of-brookline-ma
+categories: ["R"]
+tags: ["heatwave", "Urban Heat Island", "Census 2014"]
+---
+
