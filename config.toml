@@ -18,7 +18,7 @@ defaultContentLanguage = "en-us"
 title = "Babak's Blog :)"
 theme = "hugo-tranquilpeak-theme"
 disqusShortname = "babakspage"
-# googleAnalytics = "UA-123-45"
+googleAnalytics = "UA-123884309-1"
 paginate = 7
 canonifyurls = true
 

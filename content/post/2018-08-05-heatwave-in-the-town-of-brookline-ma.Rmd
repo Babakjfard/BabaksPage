@@ -6,4 +6,4 @@ slug: heatwave-in-the-town-of-brookline-ma
 categories: ["R"]
 tags: ["heatwave", "Urban Heat Island", "Census 2014"]
 ---
-
+Ok! This is a test to make sure everything works smoothly :)
