@@ -6,4 +6,17 @@ slug: heatwave-in-the-town-of-brookline-ma
 categories: ["R"]
 tags: ["heatwave", "Urban Heat Island", "Census 2014"]
 ---
-Ok! This is a test to make sure everything works smoothly :)
+#The Importance of Heatwave Risk
+2 to 3 line showing the high effects of heatwaves
+
+#Heatwave Risk in the Town of Brookline
+Define the project
+
+##Calculating Vulnerability maps
+explain the vulnerabilities
+
+```{r}
+# Tools to use contain leaflet (or carto), and 
+```
+
+
