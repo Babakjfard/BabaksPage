@@ -32,7 +32,7 @@ Different studies have shown several importnat demographic factors as defining f
 
 * Education below high school diploma for age 25 and above
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, results='hide'}
 library(tidycensus)
 library(tidyverse)
 
@@ -75,8 +75,8 @@ variables <- c("B01003_001E", "B17017_001E","B17017_002E", "B11007_002E", "B1100
                paste0("B01001_0",20:25,"E"), paste0("B01001_0",44:49,"E"), "B02001_001E", "B02001_002E",
                "B11016_001E","B11016_009E", "B11016_010E", "B15003_001E", paste0("B15003_0",17:25,"E"))
 
-brookline <- suppressMessages(get_acs(state = "MA", county = "Norfolk", geography = "block group", 
-                  variables = variables, geometry = TRUE)) %>%
+brookline <- get_acs(state = "MA", county = "Norfolk", geography = "block group", 
+                  variables = variables, geometry = TRUE) %>%
   filter(str_detect(GEOID, "25021400|25021401"))
 ```
 
