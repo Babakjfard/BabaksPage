@@ -9,25 +9,34 @@ slug: heatwave-in-the-town-of-brookline-ma
 tags:
 - heatwave
 - Urban Heat Island
-- Census 2014
-categories: R
+- ACS 2016
+categories: ["R"]
 ---
 Heatwaves are prolonged periods of high temperature that have detrimental effects on human health, ecosystem, and power consumptions. I was surprised when I learned that the mortality by heatwave surpasses those from flood, hurricanes, earthquake all together! As a sample of a community facing potential heatwave problem I have looked into the town of Brookline, MA.
 
 ## Extracting Vulnerability Data
-Different studies have shown several importnat demographic factors as defining factors for vulnerability against heatwave. Here I have considered 6 of them, based on being mostly used and also availability of data in Census Block Group level. ACS provides estimates for three different time levels. 1-year, 3-year, and 5-year. For the purpose of this post I used ACS 5-year (provide Link and reason!)
+Different studies have shown several importnat demographic factors as defining factors for vulnerability against heatwave. Here I have considered 6 of them, based on being mostly used and also availability of data in Census Block Group level. ACS provides estimates for three different time levels. 1-year, 3-year, and 5-year. For the purpose of this post I used ACS 5-year.
 
-
-
-ok. Now I am going to return back into tidycensus, hopefully get as few NA values as possible.
 ### Vulnerability Factors:
-the 6 considered factors are ....(add reference)
-```{r, echo=FALSE}
+6 vulnerability factors are considered as:
+
+* Income bwlow poverty leve
+
+* Age 65 years and over
+
+* Household living alone
+
+* Household living alone, over 65 years old
+
+* Race other than white
+
+* Education below high school diploma for age 25 and above
+
+```{r, message=FALSE, warning=FALSE}
 library(tidycensus)
 library(tidyverse)
-options(tigris_use_cache = TRUE)
 
-Sys.getenv("CENSUS_API_KEY")
+acs_key <- Sys.getenv("CENSUS_API_KEY")
 
 # Metadata for variables is here: https://api.census.gov/data/2016/acs/acs5/variables.html (Census Data API: Variables in /data/2016/acs/acs5/variables) or you may use load_variables() function of tidyCensus package.
 # and the extracted variables: 
@@ -74,7 +83,7 @@ brookline <- get_acs(state = "MA", county = "Norfolk", geography = "block group"
 ## Polpulation in Block Groups
 First let's take a look into the polpulation in different Block Groups, based on the ACS 2016 5-year estimate. 
 
-```{r, echo=FALSE, fig.cap="Populations with MOE as percentage of estimate"}
+```{r b, message=FALSE, warning=FALSE, fig.cap='A fancy pie chart.', tidy=FALSE}
 library(mapview)
 library(sf)
 library(RColorBrewer)
@@ -103,7 +112,7 @@ m2 <- mapview(centers, z="percent_moe", popup=popupTable(centers, zcol = c("esti
 m1 + m2
 ```
 In this figure, the size of circles is proportional to the population in each Block Group. It clearly shows higher populations in North part of the town, with much smaller BG sizes. We can expect a potential of higher vulnerabilities in these areas. The color shade is used as a measure for uncertainty. MOE provided by ACS is used to calculate MOE as a percentage of estimate. 
-It is important to inform the decision makers about the accuray of the estimates. Different approaches might be considered for how to provide this information in the reports. From (this post):[https://www.esri.com/arcgis-blog/products/arcgis-online/mapping/the-census-bureau-gives-you-margins-of-error-we-help-you-map-them/]:
+It is important to inform the decision makers about the accuray of the estimates. Different approaches might be considered for how to provide this information in the reports. From [this post](https://www.esri.com/arcgis-blog/products/arcgis-online/mapping/the-census-bureau-gives-you-margins-of-error-we-help-you-map-them/):
 
 1. Supress unreliable estimates
 2. Map all the data and display the range in pop-ups
@@ -111,9 +120,9 @@ It is important to inform the decision makers about the accuray of the estimates
 
 I have used option 3 and will continue to use for all the maps in this post!
 
-## Calculating vulerabilities
-Now let's do the main work, which is calculating the 6 vulnerability factors. here, I have calculated each vulnerability as the proportion of the vulnerable population to the base population. It requires different operatins of summations, or dividing. The calculations of MOE for the derived estimation is different for each arithmetic operation. The details are provided by ("A Compass for Understanding and Using American Community Survey Data")[https://www.census.gov/content/dam/Census/library/publications/2008/acs/ACSGeneralHandbook.pdf] by US Census 2010. I am not going to repeat the formulations here. Since they can be found in the mentioned document, also the great (tidyCensus packeage)[https://walkerke.github.io/tidycensus/] has provided a set of 4 moe_ functions for this specific purpose. Makes life even easier after using it for connecting to Census API.
-```{r, echo=FALSE}
+## Calculating vulnerabilities
+Now let's do the main work, which is calculating the 6 vulnerability factors. here, I have calculated each vulnerability as the proportion of the vulnerable population to the base population. It requires different operatins of summations, or dividing. The calculations of MOE for the derived estimation is different for each arithmetic operation. The details are provided by ["A Compass for Understanding and Using American Community Survey Data"](https://www.census.gov/content/dam/Census/library/publications/2008/acs/ACSGeneralHandbook.pdf) by US Census 2010. I am not going to repeat the formulations here. Since they can be found in the mentioned document, also the great [tidyCensus packeage](https://walkerke.github.io/tidycensus/) has provided a set of 4 moe_ functions for this specific purpose. Makes life even easier after using it for connecting to Census API.
+```{r, message=FALSE, warning=FALSE}
 # The 6 vulnerability factors
 # 1: Poverty = "B17017_002" / "B17017_001"
 # 2: Over60_alone = "B11007_003" / "B11007_002"
@@ -146,7 +155,7 @@ educational <- vuln_ratio(paste0("B15003_0",17:25), "B15003_001", "education")
 
 ```
 The calculated tables are then combined into one table and joined with the geographical data, then to be mapped
-```{r, echo=FALSE}
+```{r, message=FALSE, warning=FALSE}
 make_map <- function(vulnerability, the.factor){
   vulnerability <- st_sf(vulnerability, sf_column_name = 'geometry')
  
@@ -166,7 +175,7 @@ mapit <- function(factor_name){
 
 # Create the overal table
 vulnerabilities <- bind_rows(educational, household_alone, Over60, Over60_alone, poverty, Race_noWhite)
-vulns_geo <- dplyr::left_join(vulnerabilities, p)
+vulns_geo <- dplyr::left_join(vulnerabilities, pop.total[,-(3:6)])
 
 #================================================
 cols <- colorRampPalette(brewer.pal(9, "Reds"))

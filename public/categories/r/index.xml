@@ -12,23 +12,13 @@
     
     
     <item>
-      <title>Heatwave in the Town of Brookline, MA</title>
+      <title>Heatwave in the Town of Brookline, MA - (I) Vulnerability</title>
       <link>/2018/08/heatwave-in-the-town-of-brookline-ma/</link>
       <pubDate>Sun, 05 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/2018/08/heatwave-in-the-town-of-brookline-ma/</guid>
-      <description>Ok! This is a test to make sure everything works smoothly :)</description>
-    </item>
-    
-    <item>
-      <title>Hello R Markdown</title>
-      <link>/2015/07/hello-r-markdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/2015/07/hello-r-markdown/</guid>
-      <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+      <description>Heatwaves are prolonged periods of high temperature that have detrimental effects on human health, ecosystem, and power consumptions. I was surprised when I learned that the mortality by heatwave surpasses those from flood, hurricanes, earthquake all together! As a sample of a community facing potential heatwave problem I have looked into the town of Brookline, MA.
+Extracting Vulnerability Data Different studies have shown several importnat demographic factors as defining factors for vulnerability against heatwave.</description>
     </item>
     
   </channel>

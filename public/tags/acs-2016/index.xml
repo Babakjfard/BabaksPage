@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Acs 2016 on Babak&#39;s Blog :)</title>
+    <link>/tags/acs-2016/</link>
+    <description>Recent content in Acs 2016 on Babak&#39;s Blog :)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Aug 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/acs-2016/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Heatwave in the Town of Brookline, MA - (I) Vulnerability</title>
+      <link>/2018/08/heatwave-in-the-town-of-brookline-ma/</link>
+      <pubDate>Sun, 05 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/2018/08/heatwave-in-the-town-of-brookline-ma/</guid>
+      <description>Heatwaves are prolonged periods of high temperature that have detrimental effects on human health, ecosystem, and power consumptions. I was surprised when I learned that the mortality by heatwave surpasses those from flood, hurricanes, earthquake all together! As a sample of a community facing potential heatwave problem I have looked into the town of Brookline, MA.
+Extracting Vulnerability Data Different studies have shown several importnat demographic factors as defining factors for vulnerability against heatwave.</description>
+    </item>
+    
+  </channel>
+</rss>

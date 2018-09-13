@@ -32,7 +32,7 @@ canonifyurls = true
 
 [author]
   name = "Babak J.Fard"
-  bio = "Using data to save sentient beings!"
+  bio = "Trying to use Data Science for Good!"
   job = "Data Scientist / Geospatial"
   location = "Boston, MA"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog

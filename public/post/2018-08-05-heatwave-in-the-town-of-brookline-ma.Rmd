@@ -1,9 +1,194 @@
 ---
-title: Heatwave in the Town of Brookline, MA
-author: Babak Fard
+title: "Heatwave in the Town of Brookline, MA - (I) Vulnerability"
+author: "Babak Fard"
 date: '2018-08-05'
+output:
+  html_document:
+    df_print: paged
 slug: heatwave-in-the-town-of-brookline-ma
+tags:
+- heatwave
+- Urban Heat Island
+- ACS 2016
 categories: ["R"]
-tags: ["heatwave", "Urban Heat Island", "Census 2014"]
 ---
-Ok! This is a test to make sure everything works smoothly :)
+Heatwaves are prolonged periods of high temperature that have detrimental effects on human health, ecosystem, and power consumptions. I was surprised when I learned that the mortality by heatwave surpasses those from flood, hurricanes, earthquake all together! As a sample of a community facing potential heatwave problem I have looked into the town of Brookline, MA.
+
+## Extracting Vulnerability Data
+Different studies have shown several importnat demographic factors as defining factors for vulnerability against heatwave. Here I have considered 6 of them, based on being mostly used and also availability of data in Census Block Group level. ACS provides estimates for three different time levels. 1-year, 3-year, and 5-year. For the purpose of this post I used ACS 5-year.
+
+### Vulnerability Factors:
+6 vulnerability factors are considered as:
+
+* Income bwlow poverty leve
+
+* Age 65 years and over
+
+* Household living alone
+
+* Household living alone, over 65 years old
+
+* Race other than white
+
+* Education below high school diploma for age 25 and above
+
+```{r, message=FALSE, warning=FALSE}
+library(tidycensus)
+library(tidyverse)
+
+acs_key <- Sys.getenv("CENSUS_API_KEY")
+
+# Metadata for variables is here: https://api.census.gov/data/2016/acs/acs5/variables.html (Census Data API: Variables in /data/2016/acs/acs5/variables) or you may use load_variables() function of tidyCensus package.
+# and the extracted variables: 
+
+# B01003_001E : Total, TOTAL POPULATION
+
+# Creating the vector of vaiables: 
+#1: POVERTY STATUS IN THE PAST 12 MONTHS BY HOUSEHOLD TYPE BY AGE OF HOUSEHOLDER
+# "B17017_001E": Estimate!! Total
+# "B17017_002E" Estimate!!Total!!Income in the past 12 months below poverty level
+ 
+#2: ============== Age over 65, living alone
+# B11007_002E	Estimate!!Total!!Households with one or more people 65 years and over	HOUSEHOLDS BY PRESENCE OF PEOPLE 65 YEARS AND OVER, HOUSEHOLD SIZE AND HOUSEHOLD TYPE
+# B11007_003E	Estimate!!Total!!Households with one or more people 65 years and over!!1-person household
+
+#3: ================ Age over 65
+# B01001_001E : Total Sex by Age
+# B01001_020E .. B01001_025E: Estimate!!Total!!Male!!65 and over
+# B01001_044E .. B01001_049E: Estimate!!Total!!Female!!65 and over
+
+#4: ============ Race other than white
+# B02001_001E : Total, RACE
+# B02001_002E : Total, white alone, RACE
+
+#5: ========== household living alone
+# B11016_001E : Estimate!!Total --> Huseholds
+# B11016_009E : Estimate!!Total!!Nonfamily households
+# B11016_010E : Estimate!!Total!!Nonfamily households!!1-person household
+
+# ========Educational attainment
+# B15003_001E : Estimate!!Total , EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
+# B15003_017E, ..., B15003_025E , total, high school diploma and higher, up to PhD
+
+variables <- c("B01003_001E", "B17017_001E","B17017_002E", "B11007_002E", "B11007_003E","B01001_001E",
+               paste0("B01001_0",20:25,"E"), paste0("B01001_0",44:49,"E"), "B02001_001E", "B02001_002E",
+               "B11016_001E","B11016_009E", "B11016_010E", "B15003_001E", paste0("B15003_0",17:25,"E"))
+
+brookline <- get_acs(state = "MA", county = "Norfolk", geography = "block group", 
+                  variables = variables, geometry = TRUE) %>%
+  filter(str_detect(GEOID, "25021400|25021401"))
+
+
+```
+## Polpulation in Block Groups
+First let's take a look into the polpulation in different Block Groups, based on the ACS 2016 5-year estimate. 
+
+```{r b, message=FALSE, warning=FALSE, fig.cap='A fancy pie chart.', tidy=FALSE}
+library(mapview)
+library(sf)
+library(RColorBrewer)
+pop.total <- brookline %>% filter(variable=="B01003_001")
+# MOE as a percentage of estimate
+pop.total <- pop.total %>% mutate(percent_moe = round(2*moe/estimate, digits = 2))
+
+# First to calculate the centroids of Block Groups
+pop.total$centroids <- st_transform(pop.total, 26986) %>% 
+  st_centroid() %>%
+  # this is the crs from d, which has no EPSG code:
+  st_transform(., '+proj=longlat +ellps=GRS80 +no_defs') %>%
+  # since you want the centroids in a second geometry col:
+  st_geometry()
+
+centers <- pop.total[,-7]
+st_geometry(centers) <- centers$centroids
+
+cols <- colorRampPalette(brewer.pal(9, "Reds"))
+# The base map
+m1 <- mapview(pop.total, legend = FALSE, color="black", popup=popupTable(pop.total, zcol = c("GEOID", "NAME")), col.regions="gray")
+
+# Population as the size of circles. color represents MOE as a percentage of estimate
+m2 <- mapview(centers, z="percent_moe", popup=popupTable(centers, zcol = c("estimate", "percent_moe")), col.regions=cols(40),cex="estimate",legend=TRUE,legend.pos="topleft")
+
+m1 + m2
+```
+In this figure, the size of circles is proportional to the population in each Block Group. It clearly shows higher populations in North part of the town, with much smaller BG sizes. We can expect a potential of higher vulnerabilities in these areas. The color shade is used as a measure for uncertainty. MOE provided by ACS is used to calculate MOE as a percentage of estimate. 
+It is important to inform the decision makers about the accuray of the estimates. Different approaches might be considered for how to provide this information in the reports. From [this post](https://www.esri.com/arcgis-blog/products/arcgis-online/mapping/the-census-bureau-gives-you-margins-of-error-we-help-you-map-them/):
+
+1. Supress unreliable estimates
+2. Map all the data and display the range in pop-ups
+3. Use Transparency (Color bar) to show the estimate's reliability
+
+I have used option 3 and will continue to use for all the maps in this post!
+
+## Calculating vulnerabilities
+Now let's do the main work, which is calculating the 6 vulnerability factors. here, I have calculated each vulnerability as the proportion of the vulnerable population to the base population. It requires different operatins of summations, or dividing. The calculations of MOE for the derived estimation is different for each arithmetic operation. The details are provided by ["A Compass for Understanding and Using American Community Survey Data"](https://www.census.gov/content/dam/Census/library/publications/2008/acs/ACSGeneralHandbook.pdf) by US Census 2010. I am not going to repeat the formulations here. Since they can be found in the mentioned document, also the great [tidyCensus packeage](https://walkerke.github.io/tidycensus/) has provided a set of 4 moe_ functions for this specific purpose. Makes life even easier after using it for connecting to Census API.
+```{r, message=FALSE, warning=FALSE}
+# The 6 vulnerability factors
+# 1: Poverty = "B17017_002" / "B17017_001"
+# 2: Over60_alone = "B11007_003" / "B11007_002"
+# 3: Over60 = (B01001_020+ ... +B01001_025E + B01001_044E+ ...+ B01001_049E) /"B01001_001"
+# 4: Race_noWhite = ("B02001_001" - "B02001_002")/"B02001_001"
+# 5: household_alone = "B11016_010" / "B11016_009"
+# 6: Edu = (B15003_017 + ...+ B15003_025E) / "B15003_001"
+
+vuln_ratio<- function(num, denum, vuln_name ){
+  result <- brookline %>% filter(variable %in% union(num, denum)) %>% as_data_frame(.)%>%
+    gather(var, value, (estimate:moe)) %>% 
+    unite(temp, variable, var) %>%
+    spread(temp, value) %>% 
+    mutate(est_num=rowSums(.[,paste0(num,"_estimate")]))%>%
+    mutate_at(vars(paste0(num,"_moe")), funs(`^`(.,2))) %>% mutate(moe_sum=sqrt(rowSums(.[,paste0(num,"_moe")])))%>%
+    mutate(moe = moe_prop(!!! rlang::syms(c("est_num", paste0(denum,"_estimate"), "moe_sum", paste0(denum,"_moe"))))) %>%
+    mutate(estimate=est_num/eval(parse(text=paste0(denum,"_estimate")))) %>%
+    mutate(vulnerability=vuln_name) %>%
+    distinct(GEOID, estimate, moe, vulnerability)
+  
+  return(result)
+}
+
+poverty <- vuln_ratio("B17017_002", "B17017_001", "poverty")
+Over60_alone <- vuln_ratio("B11007_003", "B11007_002", "Over60_alone")
+Over60 <- vuln_ratio(c(paste0("B01001_0",20:25),paste0("B01001_0",44:49)), "B01001_001", "Over60")
+Race_noWhite <- vuln_ratio("B02001_002","B02001_001", "Race_noWhite")
+household_alone <- vuln_ratio("B11016_010", "B11016_009", "household_alone")
+educational <- vuln_ratio(paste0("B15003_0",17:25), "B15003_001", "education")
+
+```
+The calculated tables are then combined into one table and joined with the geographical data, then to be mapped
+```{r, message=FALSE, warning=FALSE}
+make_map <- function(vulnerability, the.factor){
+  vulnerability <- st_sf(vulnerability, sf_column_name = 'geometry')
+ 
+  m_1 <- mapview(vulnerability, legend = FALSE, color="black", popup=popupTable(vulnerability, zcol = c("GEOID", "NAME")),    col.regions="gray")
+   # Circle sizes for estimate. color represents MOE as a percentage of estimate
+   st_geometry(vulnerability) <- "centroids"
+   m_2 <- mapview(vulnerability, z=the.factor, popup=popupTable(vulnerability, zcol = c("estimate", the.factor)), col.regions=cols(40),cex="estimate", legend = TRUE, legend.pos="topleft")
+   the_map <- m_1 + m_2
+   return(the_map)
+}
+mapit <- function(factor_name){
+   v <- c(factor_name)
+   geo <- vulns_geo %>% filter(vulnerability==v)
+   colnames(geo)[2] <- v
+   make_map(geo, v)
+}
+
+# Create the overal table
+vulnerabilities <- bind_rows(educational, household_alone, Over60, Over60_alone, poverty, Race_noWhite)
+vulns_geo <- dplyr::left_join(vulnerabilities, pop.total[,-(3:6)])
+
+#================================================
+cols <- colorRampPalette(brewer.pal(9, "Reds"))
+# The base map
+ 
+m1 <- mapit("poverty")
+m2 <- mapit("Over60_alone")
+m3 <- mapit("Over60")
+m4 <- mapit("Race_noWhite")
+m5 <- mapit("household_alone")
+m6 <- mapit("education")
+
+sync(m1,m2,m3,m4,m5,m6)
+```
+
+
