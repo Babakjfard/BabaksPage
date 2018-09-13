@@ -4,15 +4,7 @@ date: 2018-08-13
 categories:
 - releases
 tags:
-- hexo theme
-- responsive
-- gravatar
-- disqus
-- google analytics
-keywords:
-- disqus
-- google
-- gravatar
+- Data Science
 autoThumbnailImage: false
 thumbnailImagePosition: "top"
 thumbnailImage: //d1u9biwaxjngwg.cloudfront.net/welcome-to-tranquilpeak/city-750.jpg

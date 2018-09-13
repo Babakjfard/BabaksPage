@@ -21,29 +21,11 @@
     </item>
     
     <item>
-      <title>Disqus</title>
-      <link>/tags/disqus/</link>
+      <title>Data Science</title>
+      <link>/tags/data-science/</link>
       <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/disqus/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Google Analytics</title>
-      <link>/tags/google-analytics/</link>
-      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/google-analytics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gravatar</title>
-      <link>/tags/gravatar/</link>
-      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/gravatar/</guid>
+      <guid>/tags/data-science/</guid>
       <description></description>
     </item>
     
@@ -53,24 +35,6 @@
       <pubDate>Sun, 05 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/heatwave/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hexo Theme</title>
-      <link>/tags/hexo-theme/</link>
-      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/hexo-theme/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Responsive</title>
-      <link>/tags/responsive/</link>
-      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/responsive/</guid>
       <description></description>
     </item>
     
