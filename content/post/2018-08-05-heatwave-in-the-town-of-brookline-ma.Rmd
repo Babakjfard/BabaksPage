@@ -78,9 +78,8 @@ variables <- c("B01003_001E", "B17017_001E","B17017_002E", "B11007_002E", "B1100
 brookline <- suppressMessages(get_acs(state = "MA", county = "Norfolk", geography = "block group", 
                   variables = variables, geometry = TRUE)) %>%
   filter(str_detect(GEOID, "25021400|25021401"))
-
-
 ```
+
 ## Polpulation in Block Groups
 First let's take a look into the polpulation in different Block Groups, based on the ACS 2016 5-year estimate. 
 
