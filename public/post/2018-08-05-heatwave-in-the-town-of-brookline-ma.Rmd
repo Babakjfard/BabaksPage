@@ -69,7 +69,8 @@ acs_key <- Sys.getenv("CENSUS_API_KEY")
 # ========Educational attainment
 # B15003_001E : Estimate!!Total , EDUCATIONAL ATTAINMENT FOR THE POPULATION 25 YEARS AND OVER
 # B15003_017E, ..., B15003_025E , total, high school diploma and higher, up to PhD
-
+options(get_acs.show_progress = FALSE)
+options(readr.show_progress = FALSE)
 variables <- c("B01003_001E", "B17017_001E","B17017_002E", "B11007_002E", "B11007_003E","B01001_001E",
                paste0("B01001_0",20:25,"E"), paste0("B01001_0",44:49,"E"), "B02001_001E", "B02001_002E",
                "B11016_001E","B11016_009E", "B11016_010E", "B15003_001E", paste0("B15003_0",17:25,"E"))
