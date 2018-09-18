@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Babak&#39;s Blog :)</title>
+    <title>Tags on Data Science for Earth</title>
     <link>/tags/</link>
-    <description>Recent content in Tags on Babak&#39;s Blog :)</description>
+    <description>Recent content in Tags on Data Science for Earth</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 15 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Acs 2016</title>
       <link>/tags/acs-2016/</link>
-      <pubDate>Sun, 05 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/acs-2016/</guid>
       <description></description>
@@ -23,7 +23,7 @@
     <item>
       <title>Data Science</title>
       <link>/tags/data-science/</link>
-      <pubDate>Mon, 13 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 16 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/data-science/</guid>
       <description></description>
@@ -32,7 +32,7 @@
     <item>
       <title>Heatwave</title>
       <link>/tags/heatwave/</link>
-      <pubDate>Sun, 05 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/heatwave/</guid>
       <description></description>
@@ -41,7 +41,7 @@
     <item>
       <title>Urban Heat Island</title>
       <link>/tags/urban-heat-island/</link>
-      <pubDate>Sun, 05 Aug 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/urban-heat-island/</guid>
       <description></description>

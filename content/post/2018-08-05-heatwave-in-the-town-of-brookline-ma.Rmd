@@ -1,7 +1,7 @@
 ---
-title: "Heatwave in the Town of Brookline, MA - (I) Vulnerability"
+title: "Heatwave in the Town of Brookline, MA - (I) Vulnerabilities"
 author: "Babak Fard"
-date: '2018-08-05'
+date: '2018-09-15'
 output:
   html_document:
     df_print: paged
@@ -11,16 +11,21 @@ tags:
 - Urban Heat Island
 - ACS 2016
 categories: ["R"]
+bibliography: [references.bib]
+link-citations: true
 ---
-Heatwaves are prolonged periods of high temperature that have detrimental effects on human health, ecosystem, and power consumptions. I was surprised when I learned that the mortality by heatwave surpasses those from flood, hurricanes, earthquake all together! As a sample of a community facing potential heatwave problem I have looked into the town of Brookline, MA.
+Heatwaves are prolonged periods of high temperature that can have detrimental effects on human health, ecosystem, and power consumption. I was surprised when I learned that in the United States, the loss of human life caused by heatwaves exceeds that caused by all other weather events combined, including lightning, floods, hurricanes, and tornadoes![@klinenberg2015heat]. At that time, I was doing literature review for a project looking into the heatwaves for the town of Brookline, MA. More information about this project and the final report can be found [here](https://thrivingearthexchange.org/project/brookline-ma/).
 
-## Extracting Vulnerability Data
-Different studies have shown several importnat demographic factors as defining factors for vulnerability against heatwave. Here I have considered 6 of them, based on being mostly used and also availability of data in Census Block Group level. ACS provides estimates for three different time levels. 1-year, 3-year, and 5-year. For the purpose of this post I used ACS 5-year.
+In that project I used downloaded data tables from [American FactFinder](https://factfinder.census.gov/faces/nav/jsf/pages/index.xhtml) and shape files from Topologically Integrated Geographic Encoding and Referencing, [TIGER](https://www.census.gov/geo/maps-data/data/tiger.html), and used _ArcGIS_ to calculate and map the results. This post is a rebuilding of one part of that project, the vulnerability assessment, using R, [Census API](https://www.census.gov/data/developers/about.html) (instead of downloading tables), and a free package for [interactive viewing of spatial data in R](https://github.com/r-spatial/mapview).
+
+
+## Selection of Data Source
+Different studies have shown several important demographic factors as defining factors for vulnerability against heatwave. Here I have considered 6 of them, based on being mostly used and also availability of data in Census Block Group level. ACS provides estimates for three different time levels. 1-year, 3-year, and 5-year. For the purpose of this post I used ACS 5-year.
 
 ### Vulnerability Factors:
 6 vulnerability factors are considered as:
 
-* Income bwlow poverty leve
+* Income below poverty level
 
 * Age 65 years and over
 
@@ -81,7 +86,7 @@ brookline <- get_acs(state = "MA", county = "Norfolk", geography = "block group"
 ```
 
 ## Polpulation in Block Groups
-First let's take a look into the polpulation in different Block Groups, based on the ACS 2016 5-year estimate. 
+First let's take a look into the population in different Block Groups, based on the ACS 2016 5-year estimate. 
 
 ```{r b, message=FALSE, warning=FALSE, fig.cap='A fancy pie chart.', tidy=FALSE}
 library(mapview)
@@ -112,16 +117,16 @@ m2 <- mapview(centers, z="percent_moe", popup=popupTable(centers, zcol = c("esti
 m1 + m2
 ```
 In this figure, the size of circles is proportional to the population in each Block Group. It clearly shows higher populations in North part of the town, with much smaller BG sizes. We can expect a potential of higher vulnerabilities in these areas. The color shade is used as a measure for uncertainty. MOE provided by ACS is used to calculate MOE as a percentage of estimate. 
-It is important to inform the decision makers about the accuray of the estimates. Different approaches might be considered for how to provide this information in the reports. From [this post](https://www.esri.com/arcgis-blog/products/arcgis-online/mapping/the-census-bureau-gives-you-margins-of-error-we-help-you-map-them/):
+It is important to inform the decision makers about the accuracy of the estimates. Different approaches might be considered for how to provide this information in the reports. From [this post](https://www.esri.com/arcgis-blog/products/arcgis-online/mapping/the-census-bureau-gives-you-margins-of-error-we-help-you-map-them/):
 
-1. Supress unreliable estimates
+1. Suppress unreliable estimates
 2. Map all the data and display the range in pop-ups
 3. Use Transparency (Color bar) to show the estimate's reliability
 
 I have used option 3 and will continue to use for all the maps in this post!
 
 ## Calculating vulnerabilities
-Now let's do the main work, which is calculating the 6 vulnerability factors. here, I have calculated each vulnerability as the proportion of the vulnerable population to the base population. It requires different operatins of summations, or dividing. The calculations of MOE for the derived estimation is different for each arithmetic operation. The details are provided by ["A Compass for Understanding and Using American Community Survey Data"](https://www.census.gov/content/dam/Census/library/publications/2008/acs/ACSGeneralHandbook.pdf) by US Census 2010. I am not going to repeat the formulations here. Since they can be found in the mentioned document, also the great [tidyCensus packeage](https://walkerke.github.io/tidycensus/) has provided a set of 4 moe_ functions for this specific purpose. Makes life even easier after using it for connecting to Census API.
+Now let's do the main work, which is calculating the 6 vulnerability factors. here, I have calculated each vulnerability as the proportion of the vulnerable population to the base population. It requires different operations of summations, or dividing. The calculations of MOE for the derived estimation is different for each arithmetic operation. The details are provided by ["A Compass for Understanding and Using American Community Survey Data"](https://www.census.gov/content/dam/Census/library/publications/2008/acs/ACSGeneralHandbook.pdf) by US Census 2010. I am not going to repeat the formulations here. Since they can be found in the mentioned document, also the great [tidyCensus packeage](https://walkerke.github.io/tidycensus/) has provided a set of 4 moe_ functions for this specific purpose. Makes life even easier after using it for connecting to Census API.
 ```{r, message=FALSE, warning=FALSE}
 # The 6 vulnerability factors
 # 1: Poverty = "B17017_002" / "B17017_001"
@@ -192,3 +197,4 @@ sync(m1,m2,m3,m4,m5,m6)
 ```
 
 
+##References

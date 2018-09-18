@@ -1,6 +1,6 @@
 ---
-title: "Welcome to DataScinece for Earth"
-date: 2018-08-13
+title: "Welcome to DataScience for Earth"
+date: 2018-09-16
 categories:
 - releases
 tags:

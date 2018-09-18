@@ -15,7 +15,7 @@
 baseURL = "https://awesome-galileo-7f9544.netlify.com/"
 languageCode = "en-us"
 defaultContentLanguage = "en-us"
-title = "Babak's Blog :)"
+title = "Data Science for Earth"
 theme = "hugo-tranquilpeak-theme"
 disqusShortname = "babakspage"
 googleAnalytics = "UA-123884309-1"
