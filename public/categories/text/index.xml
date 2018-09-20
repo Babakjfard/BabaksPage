@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Data Science for Earth</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on Data Science for Earth</description>
+    <title>Text on Data Science for Earth</title>
+    <link>/categories/text/</link>
+    <description>Recent content in Text on Data Science for Earth</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 16 Sep 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/categories/text/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       <guid>/2018/09/welcome-to-data-science-for-earth/</guid>
       <description>This blog is created and maintained by Babak J.Fard, a PhD candidate in Sustainability and Data Science (SDS) lab, at Northeastern University. Its purpose is to share ideas, codes, and analyses related to the environmental problems, and to present small samples of using Data Science for Good. Posts may contain only texts, or a mixtures of codes and data analytics. Leaving comments under the posts are greatly appreciated.
  To this date, almost all countries have ratified the Paris Agreement on Climate Change.</description>
-    </item>
-    
-    <item>
-      <title>Heatwave in the Town of Brookline, MA - (I) Vulnerabilities</title>
-      <link>/2018/09/heatwave-in-the-town-of-brookline-ma/</link>
-      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/2018/09/heatwave-in-the-town-of-brookline-ma/</guid>
-      <description>Heatwaves are prolonged periods of high temperature that can have detrimental effects on human health, ecosystem, and power consumption. I was surprised when I learned that in the United States, the loss of human life caused by heatwaves exceeds that caused by all other weather events combined, including lightning, floods, hurricanes, and tornadoes[Klinenberg (2015)]. At that time, I was doing literature review for a project looking into the heatwaves for the town of Brookline, MA.</description>
     </item>
     
   </channel>

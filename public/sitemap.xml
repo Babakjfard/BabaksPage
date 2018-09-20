@@ -59,14 +59,14 @@
   </url>
   
   <url>
-    <loc>/categories/releases/</loc>
-    <lastmod>2018-09-16T00:00:00+00:00</lastmod>
+    <loc>/tags/</loc>
+    <lastmod>2018-09-15T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/tags/</loc>
-    <lastmod>2018-09-15T00:00:00+00:00</lastmod>
+    <loc>/categories/text/</loc>
+    <lastmod>2018-09-16T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
