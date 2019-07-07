@@ -126,7 +126,12 @@ It is important to inform the decision makers about the accuracy of the estimate
 I have used option 3 and will continue to use for all the maps in this post!
 
 ## Calculating vulnerabilities
-Now let's do the main work, which is calculating the 6 vulnerability factors. here, I have calculated each vulnerability as the proportion of the vulnerable population to the base population. It requires different operations of summations, or dividing. The calculations of MOE for the derived estimation is different for each arithmetic operation. The details are provided by ["A Compass for Understanding and Using American Community Survey Data"](https://www.census.gov/content/dam/Census/library/publications/2008/acs/ACSGeneralHandbook.pdf) by US Census 2010. I am not going to repeat the formulations here. Since they can be found in the mentioned document, also the great [tidyCensus packeage](https://walkerke.github.io/tidycensus/) has provided a set of 4 moe_ functions for this specific purpose. Makes life even easier after using it for connecting to Census API.
+Now we are calculating the 6 vulnerability factors. here, I have calculated each vulnerability as the proportion of the vulnerable population to the base population. It requires different operations of summations, or dividing. The calculations of MOE for the derived estimation is different for each arithmetic operation. three methods are used here as follow:
+
+* MOE for aggregated count data
+* MOE for derived proportions
+* MOE for derived ratios
+. The details are provided by ["A Compass for Understanding and Using American Community Survey Data"](https://www.census.gov/content/dam/Census/library/publications/2008/acs/ACSGeneralHandbook.pdf) by US Census 2010. I am not going to repeat the formulations here. Since they can be found in the mentioned document, also the great [tidyCensus packeage](https://walkerke.github.io/tidycensus/) has provided a set of 4 moe_ functions for this specific purpose. Makes life even easier after using it for connecting to Census API.
 ```{r, message=FALSE, warning=FALSE}
 # The 6 vulnerability factors
 # 1: Poverty = "B17017_002" / "B17017_001"
