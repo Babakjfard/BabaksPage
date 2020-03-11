@@ -1,0 +1,13 @@
+---
+title: Tracking Spatial Distribution of Elderly Population
+author: Babak J.Fard
+date: '2020-03-11'
+slug: tracking-spatial-distribution-of-elderly-population
+categories:
+  - R
+tags: []
+keywords:
+  - tech
+---
+
+<!--more-->
